@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, AreaChart, Area, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
-import './KPIDashboard.css';
 
 const KPIDashboard = () => {
   const [selectedTimeRange, setSelectedTimeRange] = useState('7d');
@@ -75,25 +74,29 @@ const KPIDashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="dashboard-loading">
-        <div className="loading-spinner"></div>
-        <p>Loading dashboard...</p>
+      <div className="flex flex-col justify-center items-center h-screen bg-background">
+        <div className="w-10 h-10 border-4 border-border border-t-primary rounded-full animate-spin mb-4"></div>
+        <p className="text-muted-foreground text-base">Loading dashboard...</p>
       </div>
     );
   }
 
   return (
-    <div className="kpi-dashboard">
-      <div className="dashboard-header">
+    <div className="p-6 bg-background min-h-screen">
+      <div className="flex flex-col md:flex-row justify-between items-start mb-8 gap-4">
         <div>
-          <h1 className="dashboard-title">KPI Dashboard</h1>
-          <p className="dashboard-subtitle">Monitor your key performance indicators</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">KPI Dashboard</h1>
+          <p className="text-muted-foreground text-base">Monitor your key performance indicators</p>
         </div>
-        <div className="time-range-selector">
+        <div className="flex gap-1 bg-card p-1 rounded-lg shadow-sm border border-border">
           {['24h', '7d', '30d', '90d'].map((range) => (
             <button
               key={range}
-              className={`time-range-btn ${selectedTimeRange === range ? 'active' : ''}`}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                selectedTimeRange === range
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+              }`}
               onClick={() => setSelectedTimeRange(range)}
             >
               {range}
@@ -103,35 +106,37 @@ const KPIDashboard = () => {
       </div>
 
       {/* KPI Cards */}
-      <div className="kpi-cards-grid">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {kpiData.map((kpi, index) => (
-          <div key={index} className="kpi-card">
-            <div className="kpi-card-header">
-              <h3 className="kpi-title">{kpi.title}</h3>
+          <div key={index} className="bg-card rounded-xl p-6 shadow-sm border border-border">
+            <div className="mb-4">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{kpi.title}</h3>
             </div>
-            <div className="kpi-card-content">
-              <div className="kpi-value">{kpi.value}</div>
-              <div className={`kpi-change ${kpi.trend}`}>
-                <span className={`trend-icon ${kpi.trend}`}>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-foreground">{kpi.value}</div>
+              <div className={`flex items-center gap-2 text-sm font-semibold ${
+                kpi.trend === 'up' ? 'text-green-600' : 'text-red-500'
+              }`}>
+                <span className="text-base">
                   {kpi.trend === 'up' ? '↗' : '↘'}
                 </span>
                 {kpi.change}
               </div>
-              <p className="kpi-description">{kpi.description}</p>
+              <p className="text-muted-foreground text-sm">{kpi.description}</p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Charts Section */}
-      <div className="charts-grid">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Revenue Chart */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3 className="chart-title">Revenue Overview</h3>
-            <p className="chart-description">Monthly revenue and user growth</p>
+        <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+          <div className="mb-5">
+            <h3 className="text-xl font-bold text-foreground mb-2">Revenue Overview</h3>
+            <p className="text-muted-foreground text-sm">Monthly revenue and user growth</p>
           </div>
-          <div className="chart-content">
+          <div className="w-full">
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={revenueData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -147,12 +152,12 @@ const KPIDashboard = () => {
         </div>
 
         {/* Conversion Rate Chart */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3 className="chart-title">Conversion Rate</h3>
-            <p className="chart-description">Daily conversion rate trends</p>
+        <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+          <div className="mb-5">
+            <h3 className="text-xl font-bold text-foreground mb-2">Conversion Rate</h3>
+            <p className="text-muted-foreground text-sm">Daily conversion rate trends</p>
           </div>
-          <div className="chart-content">
+          <div className="w-full">
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={conversionData}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -166,12 +171,12 @@ const KPIDashboard = () => {
         </div>
 
         {/* Traffic Sources Chart */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3 className="chart-title">Traffic Sources</h3>
-            <p className="chart-description">Website traffic distribution</p>
+        <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+          <div className="mb-5">
+            <h3 className="text-xl font-bold text-foreground mb-2">Traffic Sources</h3>
+            <p className="text-muted-foreground text-sm">Website traffic distribution</p>
           </div>
-          <div className="chart-content">
+          <div className="w-full">
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -195,12 +200,12 @@ const KPIDashboard = () => {
         </div>
 
         {/* Performance Metrics */}
-        <div className="chart-card">
-          <div className="chart-header">
-            <h3 className="chart-title">Performance Metrics</h3>
-            <p className="chart-description">Key performance indicators comparison</p>
+        <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+          <div className="mb-5">
+            <h3 className="text-xl font-bold text-foreground mb-2">Performance Metrics</h3>
+            <p className="text-muted-foreground text-sm">Key performance indicators comparison</p>
           </div>
-          <div className="chart-content">
+          <div className="w-full">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={revenueData}>
                 <CartesianGrid strokeDasharray="3 3" />
