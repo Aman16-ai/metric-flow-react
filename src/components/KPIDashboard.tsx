@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -69,25 +68,25 @@ const KPIDashboard = () => {
     }
   ];
 
-  // Mock chart data
+  // Mock chart data with required value property
   const revenueData: ChartDataPoint[] = [
-    { name: 'Jan', revenue: 4000, users: 2400 },
-    { name: 'Feb', revenue: 3000, users: 1398 },
-    { name: 'Mar', revenue: 2000, users: 9800 },
-    { name: 'Apr', revenue: 2780, users: 3908 },
-    { name: 'May', revenue: 1890, users: 4800 },
-    { name: 'Jun', revenue: 2390, users: 3800 },
-    { name: 'Jul', revenue: 3490, users: 4300 }
+    { name: 'Jan', value: 4000, revenue: 4000, users: 2400 },
+    { name: 'Feb', value: 3000, revenue: 3000, users: 1398 },
+    { name: 'Mar', value: 2000, revenue: 2000, users: 9800 },
+    { name: 'Apr', value: 2780, revenue: 2780, users: 3908 },
+    { name: 'May', value: 1890, revenue: 1890, users: 4800 },
+    { name: 'Jun', value: 2390, revenue: 2390, users: 3800 },
+    { name: 'Jul', value: 3490, revenue: 3490, users: 4300 }
   ];
 
   const conversionData: ChartDataPoint[] = [
-    { name: 'Mon', conversion: 2.4 },
-    { name: 'Tue', conversion: 1.8 },
-    { name: 'Wed', conversion: 3.2 },
-    { name: 'Thu', conversion: 2.9 },
-    { name: 'Fri', conversion: 3.8 },
-    { name: 'Sat', conversion: 2.1 },
-    { name: 'Sun', conversion: 1.9 }
+    { name: 'Mon', value: 2.4, conversion: 2.4 },
+    { name: 'Tue', value: 1.8, conversion: 1.8 },
+    { name: 'Wed', value: 3.2, conversion: 3.2 },
+    { name: 'Thu', value: 2.9, conversion: 2.9 },
+    { name: 'Fri', value: 3.8, conversion: 3.8 },
+    { name: 'Sat', value: 2.1, conversion: 2.1 },
+    { name: 'Sun', value: 1.9, conversion: 1.9 }
   ];
 
   const trafficSourceData = [
